@@ -11,6 +11,9 @@ import { formatCurrency } from './utils';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
+const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
+const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
+
 export async function fetchRevenue() {
   try {
     // Artificially delay a response for demo purposes.
@@ -64,6 +67,8 @@ export async function fetchCardData() {
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
          FROM invoices`;
 
+    // Promise.all: Start executing all data fetches at the same time, 
+    // which is faster than waiting for each request to complete in a waterfall. 
     const data = await Promise.all([
       invoiceCountPromise,
       customerCountPromise,
