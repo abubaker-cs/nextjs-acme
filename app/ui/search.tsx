@@ -38,6 +38,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
     // Creating a new instance of URLSearchParams with the current search parameters.
     const params = new URLSearchParams(searchParams);
 
+    params.set('page', '1');
+
     if (term) {
 
       // If a search term is provided, it sets the 'query' parameter in the URL.
