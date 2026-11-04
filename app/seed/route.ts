@@ -33,11 +33,13 @@ async function seedInvoices() {
     CREATE TABLE IF NOT EXISTS invoices (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       customer_id UUID NOT NULL,
-      amount INT NOT NULL,
+      amount BIGINT NOT NULL,
       status VARCHAR(255) NOT NULL,
       date DATE NOT NULL
     );
   `;
+
+  await sql`ALTER TABLE invoices ALTER COLUMN amount TYPE BIGINT`;
 
   const insertedInvoices = await Promise.all(
     invoices.map(
