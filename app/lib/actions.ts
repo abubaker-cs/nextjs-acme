@@ -3,7 +3,7 @@
 // Note: Any functions included in this file that are not used will be 
 // automatically removed from the final application bundle.
 
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 
 // Import the Zod library for schema validation
@@ -206,6 +206,11 @@ export async function authenticate(
           return 'Something went wrong.';
       }
     }
+
     throw error;
   }
+}
+
+export async function signOutAction() {
+  await signOut({ redirectTo: '/login' });
 }
