@@ -3,6 +3,9 @@
 // Note: Any functions included in this file that are not used will be 
 // automatically removed from the final application bundle.
 
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
+
 // Import the Zod library for schema validation
 import { z } from 'zod';
 
@@ -186,4 +189,23 @@ export async function deleteInvoice(id: string) {
   await sql`DELETE FROM invoices WHERE id = ${id}`;
   revalidatePath('/dashboard/invoices');
   
+}
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
 }
