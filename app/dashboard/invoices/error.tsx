@@ -3,6 +3,12 @@
  
 import { useEffect } from 'react';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Error Info Page',
+};
+
 // It accepts two props: error and reset
 export default function Error({
   // This object is an instance of JavaScript's native Error object.

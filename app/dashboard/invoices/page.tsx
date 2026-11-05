@@ -8,6 +8,12 @@ import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 
 // fetchInvoicesPages returns the total number of pages based on the search query. 
 import { fetchInvoicesPages } from '@/app/lib/data';
+
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Invoices',
+};
  
 export default async function Page(props: {
   searchParams?: Promise<{

@@ -1,6 +1,12 @@
 import Link from 'next/link';
 import { FaceFrownIcon } from '@heroicons/react/24/outline';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '404 Not Found',
+};
+
 // Note: notFound (404 file) will take precedence over error.tsx
 export default function NotFound() {
   return (
